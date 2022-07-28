@@ -44,6 +44,7 @@ namespace NewYPF
 
         public void ConvertToLib(string filename)
         {
+            Console.WriteLine("ConvertToLib start");
             bool hasMaskImg = false;
             if (ypfImageSets == null) return;
             //if(ypfImageSets.count==2) //has mask
@@ -51,6 +52,7 @@ namespace NewYPF
 
             for (int i = 0; i < ypfImageSets.Length; i++)
             {
+                Console.WriteLine("Convert to lib, ypfImageSetIdx:" + i);
                 imagesWithPosition.Add(ypfImageSets[i].ConvertToLib(filename + "_ImageSet_" + i.ToString()));
             }
             if (imagesWithPosition.Count == 2) hasMaskImg = true;
@@ -66,11 +68,13 @@ namespace NewYPF
                     var x = (short)imagesWithPosition[0].xVals[i];
                     var y = (short)imagesWithPosition[0].yVals[i];
                     mLibraryV2.AddImage(img, maskImg, x, y);
+                    Console.Write(".");
                 }
             }
             else
             {
                 //파일 분리해서 저장하는게 맞을지?
+                Console.WriteLine("Has No Mask Img");
                 for (int i = 0; i < imagesWithPosition.Count; i++)
                 {
                     for (int j = 0; j < imagesWithPosition[i].bitmaps.Count; j++)
@@ -79,6 +83,7 @@ namespace NewYPF
                         var x = (short)imagesWithPosition[i].xVals[j];
                         var y = (short)imagesWithPosition[i].yVals[j];
                         mLibraryV2.AddImage(img, x, y);
+                        Console.Write(".");
                         //mLibraryV2.AddImage(bitmaps[i], maskBitmaps[i], (short)xVals[i], (short)yVals[i]);
                     }
                 }
@@ -307,7 +312,8 @@ namespace NewYPF
         public void SaveFrame(string filename)
         { 
             for(int i=0;i<frames.Length;i++)
-            { 
+            {
+                Console.WriteLine("Save Frame:" + i + "/" + frames.Length);
                 frames[i].SaveImage(filename+"_"+i);
             }
         }
@@ -329,6 +335,7 @@ namespace NewYPF
 
             for (int i = 0; i < frames.Length; i++)
             {
+                Console.WriteLine("FrameIdx:" + i+"/"+frames.Length);
                 imagesWithPosition.bitmaps.Add(frames[i].ConvertToLib(filename));
                 imagesWithPosition.xVals.Add(frames[i].Top);
                 imagesWithPosition.yVals.Add(frames[i].Left);

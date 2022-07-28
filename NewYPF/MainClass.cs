@@ -1,27 +1,66 @@
 using System;
+using System.Drawing;
 using System.IO;
 
 namespace NewYPF
-{  
-   
+{
     class MainClass
     {
         public void Main(string[] args)
         {
-            string[] filenames = new string[] { "test.ypf" };
+            //string[] filenames = new string[] { "test.ypf" };
+            string[] filenames = new string[] { "00000.map" };
+
+
+            //Path.GetFileNameWithoutExtension
+
+
             if (args.Length > 0) filenames = args;
-            for (int i = 0; i < filenames.Length; i++)
+
+            foreach (var filename in filenames)
             {
-                if (!File.Exists(filenames[i]))
+                if (!File.Exists(filename))
                 {
-                    Console.WriteLine(filenames[i] + "Is Not Exist!");
+                    Console.WriteLine(filename + "Is Not Exist!");
                     continue;
                 }
-                var ypf = ConvertYpfToRGBA(filenames[i]);
-                //ypf.SaveFile(filenames[i]);
-                ypf.ConvertToLib(filenames[i]);
+                switch (GetExt(filename))
+                {
+                    case ".ypf": ConvertYpfToRGBA(filename).ConvertToLib(filename); break;
+                    case ".map": ConvertMapToM2Map(filename); break;
+                    case ".png": ConvertPngToLib(filename,-48,+24); break;//지도 통째로 올릴때 사용됨
+
+
+                }
             }
             Console.WriteLine("FIN!");
+
+        }
+
+        string GetExt(string filename)
+        {
+            string ext = Path.GetFileName(filename);
+            ext = ext.Replace(Path.GetFileNameWithoutExtension(filename), "");
+            return ext;
+        }
+
+        void ConvertPngToLib(string filename, short offsetX = 0, short offsetY = 0)
+        {
+            MLibraryV2 mLibraryV2 = new MLibraryV2(filename + ".lib");
+            Bitmap bitmap = new Bitmap(filename);
+            mLibraryV2.AddImage(bitmap, offsetX, offsetY);
+            mLibraryV2.Save();
+            //이걸 정상적으로 적용시키려면 지도의 크기를 1씩 증가시키고 위치를 x, y를 +1씩 옮겨야한다
+        }
+
+        void ConvertMapToM2Map(string filename)
+        {
+            Console.WriteLine("Start ConvertMapToM2Map. Filename:" + filename);
+            byte[] datas = ReadByteFile(filename);
+            MAPFormat mapFormat = new MAPFormat(datas,filename);
+            mapFormat.ConvertToM2MAP("M2_"+filename);
+
+            Console.WriteLine(datas.Length);
         }
 
         YPFFormat ConvertYpfToRGBA(string filename)
