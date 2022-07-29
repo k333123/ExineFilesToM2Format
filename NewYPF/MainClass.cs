@@ -11,10 +11,6 @@ namespace NewYPF
             //string[] filenames = new string[] { "test.ypf" };
             string[] filenames = new string[] { "00000.map" };
 
-
-            //Path.GetFileNameWithoutExtension
-
-
             if (args.Length > 0) filenames = args;
 
             foreach (var filename in filenames)
@@ -28,9 +24,8 @@ namespace NewYPF
                 {
                     case ".ypf": ConvertYpfToRGBA(filename).ConvertToLib(filename); break;
                     case ".map": ConvertMapToM2Map(filename); break;
-                    case ".png": ConvertPngToLib(filename,-48,+24); break;//지도 통째로 올릴때 사용됨
-
-
+                    case ".png": ConvertPngToLib(filename,-48,+24); break;//To One Lib
+                    case ".dat": ExtractDat(filename); break; 
                 }
             }
             Console.WriteLine("FIN!");
@@ -44,13 +39,22 @@ namespace NewYPF
             return ext;
         }
 
+        void ExtractDat(string filename)
+        {
+            byte[] datas = ReadByteFile(filename);
+            DATFormat datFormat = new DATFormat(datas);
+            datFormat.Save();
+        }
+
         void ConvertPngToLib(string filename, short offsetX = 0, short offsetY = 0)
         {
-            MLibraryV2 mLibraryV2 = new MLibraryV2(filename + ".lib");
+            DirectoryInfo di = new DirectoryInfo(".\\PNG_OUT");
+            if (!di.Exists) di.Create();
+
+            MLibraryV2 mLibraryV2 = new MLibraryV2(".\\PNG_OUT\\"+filename + ".lib");
             Bitmap bitmap = new Bitmap(filename);
             mLibraryV2.AddImage(bitmap, offsetX, offsetY);
-            mLibraryV2.Save();
-            //이걸 정상적으로 적용시키려면 지도의 크기를 1씩 증가시키고 위치를 x, y를 +1씩 옮겨야한다
+            mLibraryV2.Save(); 
         }
 
         void ConvertMapToM2Map(string filename)

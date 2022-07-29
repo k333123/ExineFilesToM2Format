@@ -94,7 +94,11 @@ namespace NewYPF
 
         public void Save(string filename)
         {
-            var fileStream = new FileStream(filename, FileMode.Create);
+            DirectoryInfo di = new DirectoryInfo(".\\MAP_OUT");
+            if (!di.Exists) di.Create();
+
+
+            var fileStream = new FileStream(".\\MAP_OUT\\"+filename, FileMode.Create);
             var binaryWriter = new BinaryWriter(fileStream);
             short ver = 1;
             char[] tag = { 'C', '#' };

@@ -44,6 +44,9 @@ namespace NewYPF
 
         public void ConvertToLib(string filename)
         {
+            DirectoryInfo di = new DirectoryInfo(".\\YPF_OUT");
+            if (!di.Exists) di.Create();
+
             Console.WriteLine("ConvertToLib start");
             bool hasMaskImg = false;
             if (ypfImageSets == null) return;
@@ -57,7 +60,9 @@ namespace NewYPF
             }
             if (imagesWithPosition.Count == 2) hasMaskImg = true;
 
-            MLibraryV2 mLibraryV2 = new MLibraryV2(filename + ".lib");
+
+
+            MLibraryV2 mLibraryV2 = new MLibraryV2(".\\YPF_OUT\\" + filename + ".lib");
             if (hasMaskImg)
             {
                 Console.WriteLine("Has Mask Img");
@@ -641,13 +646,25 @@ namespace NewYPF
 
                 argbIdx=argbIdx+4;
             }
-
-
-            
-            DirectoryInfo di = new DirectoryInfo(".\\out");
+             
+            DirectoryInfo di = new DirectoryInfo(".\\YPF_OUT");
             if(!di.Exists) di.Create();
  
             
+            Bitmap bitmap = new Bitmap(FrameWidth, FrameHeight, PixelFormat.Format32bppArgb);
+            BitmapData bmpData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.WriteOnly, bitmap.PixelFormat);
+            int rowSize = Math.Abs(bmpData.Stride);
+            IntPtr bmpScan0 = bmpData.Scan0;
+            for (int y = 0; y < FrameHeight; y++)
+            {
+                Marshal.Copy(colorDataRGBA, y * FrameWidth * 4, IntPtr.Add(bmpScan0, y * rowSize), FrameWidth * 4);
+            }
+            bitmap.UnlockBits(bmpData);
+            bitmap.Save(".\\YPF_OUT\\" + filename+".png", ImageFormat.Png);
+            //bitmap.Save(".\\out\\"+filename+".png", ImageFormat.Png);
+            bitmap.Dispose();
+
+
             /*
             //Bitmap bitmap = new Bitmap(FrameWidth, FrameHeight, PixelFormat.Format32bppArgb);
             Bitmap bitmap = new Bitmap(FrameWidth, FrameHeight, PixelFormat.Format16bppRgb565);
@@ -664,18 +681,6 @@ namespace NewYPF
             bitmap.Dispose();
             */
 
-            Bitmap bitmap = new Bitmap(FrameWidth, FrameHeight, PixelFormat.Format32bppArgb);
-            BitmapData bmpData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.WriteOnly, bitmap.PixelFormat);
-            int rowSize = Math.Abs(bmpData.Stride);
-            IntPtr bmpScan0 = bmpData.Scan0;
-            for (int y = 0; y < FrameHeight; y++)
-            {
-                Marshal.Copy(colorDataRGBA, y * FrameWidth * 4, IntPtr.Add(bmpScan0, y * rowSize), FrameWidth * 4);
-            }
-            bitmap.UnlockBits(bmpData);
-            bitmap.Save(".\\out\\"+filename+".png", ImageFormat.Png);
-            //bitmap.Save(".\\out\\"+filename+".png", ImageFormat.Png);
-            bitmap.Dispose();
 
             return true;
         }
