@@ -62,7 +62,9 @@ namespace NewYPF
 
 
 
-            MLibraryV2 mLibraryV2 = new MLibraryV2(".\\YPF_OUT\\" + filename + ".lib");
+            //.ypf.lib => .lib로 변경
+            
+            MLibraryV2 mLibraryV2 = new MLibraryV2(".\\YPF_OUT\\" + Path.GetFileNameWithoutExtension(filename) + ".lib");
             if (hasMaskImg)
             {
                 Console.WriteLine("Has Mask Img");

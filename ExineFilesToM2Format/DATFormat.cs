@@ -17,7 +17,9 @@ namespace NewYPF
         public string Filename 
         {
             get {
-                string temp = Encoding.Default.GetString(filename);
+                //string temp = Encoding.Default.GetString(filename);
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                string temp = Encoding.GetEncoding(51949).GetString(filename);
                 temp = temp.Remove(temp.IndexOf('\0'));
                 return temp;
             }

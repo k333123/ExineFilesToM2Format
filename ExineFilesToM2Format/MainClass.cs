@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
@@ -10,16 +11,41 @@ namespace NewYPF
         {
             //string[] filenames = new string[] { "test.ypf" };
             string[] filenames = new string[] { "00000.map" };
+            List<String> inputFileNames = new List<string>();
 
             if (args.Length > 0) filenames = args;
+            
 
-            foreach (var filename in filenames)
+            if (!File.Exists(filenames[0]))
+            {
+                if (Path.GetFileNameWithoutExtension(filenames[0]).Equals("*"))
+                {
+                    Console.WriteLine("Scan File List");
+                    //scan *.dat files
+                    inputFileNames.AddRange(System.IO.Directory.GetFiles(".", filenames[0]));
+                    foreach(var fileName in inputFileNames)
+                    {
+                        Console.WriteLine(fileName);
+                    }
+                } 
+                else
+                {
+                    foreach (var filename in filenames)
+                    {
+                        inputFileNames.Add(filename);
+                    }
+                } 
+            }
+
+            foreach (var filename in inputFileNames)
             {
                 if (!File.Exists(filename))
                 {
+                     
                     Console.WriteLine(filename + "Is Not Exist!");
                     continue;
                 }
+
                 switch (GetExt(filename))
                 {
                     case ".ypf": ConvertYpfToRGBA(filename).ConvertToLib(filename); break;
