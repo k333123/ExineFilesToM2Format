@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\k333123\\Source\\Repos\\k333123\\ExineFilesToM2Format\\ExineFilesToM2Format\\ExineFilesToM2Format.csproj": {}
+    "C:\\Users\\k333123\\source\\repos\\k333123\\ExineFilesToM2Format\\ExineFilesToM2Format\\ExineFilesToM2Format.csproj": {}
   },
   "projects": {
-    "C:\\Users\\k333123\\Source\\Repos\\k333123\\ExineFilesToM2Format\\ExineFilesToM2Format\\ExineFilesToM2Format.csproj": {
+    "C:\\Users\\k333123\\source\\repos\\k333123\\ExineFilesToM2Format\\ExineFilesToM2Format\\ExineFilesToM2Format.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\k333123\\Source\\Repos\\k333123\\ExineFilesToM2Format\\ExineFilesToM2Format\\ExineFilesToM2Format.csproj",
+        "projectUniqueName": "C:\\Users\\k333123\\source\\repos\\k333123\\ExineFilesToM2Format\\ExineFilesToM2Format\\ExineFilesToM2Format.csproj",
         "projectName": "ExineFilesToM2Format",
-        "projectPath": "C:\\Users\\k333123\\Source\\Repos\\k333123\\ExineFilesToM2Format\\ExineFilesToM2Format\\ExineFilesToM2Format.csproj",
+        "projectPath": "C:\\Users\\k333123\\source\\repos\\k333123\\ExineFilesToM2Format\\ExineFilesToM2Format\\ExineFilesToM2Format.csproj",
         "packagesPath": "C:\\Users\\k333123\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\k333123\\Source\\Repos\\k333123\\ExineFilesToM2Format\\ExineFilesToM2Format\\obj\\",
+        "outputPath": "C:\\Users\\k333123\\source\\repos\\k333123\\ExineFilesToM2Format\\ExineFilesToM2Format\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\k333123\\AppData\\Roaming\\NuGet\\NuGet.Config",

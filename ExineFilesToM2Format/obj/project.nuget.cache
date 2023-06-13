@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "J4Rn6PRfN6QG3nb1JeGiLxwPqd9kGiA9O7xVsUhUWRdBtP/A1W5L1xlQjHVXAl1oyaqfY+2n575Xfx3lL6pbVA==",
+  "dgSpecHash": "IBvacou8lPe7Haapg0hVgTnDopcdbD6jfJt+0MiibrPKjbA4fujCD+h++YXcFODEgrKcwFJ38NxBzM3xM77ffQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\k333123\\Source\\Repos\\k333123\\ExineFilesToM2Format\\ExineFilesToM2Format\\ExineFilesToM2Format.csproj",
+  "projectFilePath": "C:\\Users\\k333123\\source\\repos\\k333123\\ExineFilesToM2Format\\ExineFilesToM2Format\\ExineFilesToM2Format.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\k333123\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\k333123\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
